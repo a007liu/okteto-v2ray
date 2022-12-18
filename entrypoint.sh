@@ -5,30 +5,39 @@ DIR_CONFIG="/etc/v2ray"
 DIR_RUNTIME="/usr/bin"
 DIR_TMP="$(mktemp -d)"
 
-ID=ad806487-2d26-4636-98b6-ab85cc8521f7
-AID=64
+ID=ad806487-2d26-4636-98b6-ab85cc852188
 WSPATH=/
-PORT=80
+PORT=8888
 
 # Write V2Ray configuration
 cat << EOF > ${DIR_TMP}/heroku.json
 {
-    "inbounds": [{
-        "port": ${PORT},
-        "protocol": "vmess",
-        "settings": {
-            "clients": [{
-                "id": "${ID}",
-                "alterId": ${AID}
-            }]
-        },
-        "streamSettings": {
-            "network": "ws",
-            "wsSettings": {
-                "path": "${WSPATH}"
-            }
-        }
-    }],
+    "inbounds": [[
+		{
+			"port": ${PORT},
+			"protocol": "vless",
+			"settings": {
+				"clients": [
+					{
+						"id": "ad806487-2d26-4636-98b6-ab85cc852188",
+						"level": 1,
+						"alterId": 0
+					}
+				],
+				"decryption": "none"
+			},
+			"listen": "127.0.0.1",
+			"streamSettings": {
+				"network": "ws"
+			},
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls"
+				]
+			}
+		}],
     "outbounds": [{
         "protocol": "freedom"
     }]
@@ -36,7 +45,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
 EOF
 
 # Get V2Ray executable release
-curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -o ${DIR_TMP}/v2ray_dist.zip
+curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL https://github.com/v2fly/v2ray-core/releases/download/v4.45.2/v2ray-linux-64.zip -o ${DIR_TMP}/v2ray_dist.zip
 busybox unzip ${DIR_TMP}/v2ray_dist.zip -d ${DIR_TMP}
 
 # Convert to protobuf format configuration
