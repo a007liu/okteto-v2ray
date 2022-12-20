@@ -37,7 +37,7 @@ cat << EOF > ${DIR_TMP}/heroku.json
 					"tls"
 				]
 			}
-		}]
+		}],
     "outbounds": [{
         "protocol": "freedom"
     }]
