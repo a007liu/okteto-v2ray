@@ -12,7 +12,7 @@ PORT=8888
 # Write V2Ray configuration
 cat << EOF > ${DIR_TMP}/heroku.json
 {
-    "inbounds": [[
+    "inbounds": [
 		{
 			"port": ${PORT},
 			"protocol": "vless",
