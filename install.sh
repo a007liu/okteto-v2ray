@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 red='\e[91m'
 green='\e[92m'
@@ -12,12 +12,59 @@ _yellow() { echo -e ${yellow}$*${none}; }
 _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
 
-
+# Root
+[[ $(id -u) != 0 ]] && echo -e "\n 哎呀……请使用 ${red}root ${none}用户运行 ${yellow}~(^_^) ${none}\n" && exit 1
 
 cmd="apt-get"
 
+sys_bit=$(uname -m)
+
+case $sys_bit in
+# i[36]86)
+# 	v2ray_bit="32"
+# 	caddy_arch="386"
+# 	;;
+'amd64' | x86_64)
 	v2ray_bit="64"
 	caddy_arch="amd64"
+	;;
+# *armv6*)
+# 	v2ray_bit="arm32-v6"
+# 	caddy_arch="arm6"
+# 	;;
+# *armv7*)
+# 	v2ray_bit="arm32-v7a"
+# 	caddy_arch="arm7"
+# 	;;
+*aarch64* | *armv8*)
+	v2ray_bit="arm64-v8a"
+	caddy_arch="arm64"
+	;;
+*)
+	echo -e " 
+	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
+	" && exit 1
+	;;
+esac
+
+# 笨笨的检测方法
+if [[ $(command -v apt-get) || $(command -v yum) ]] && [[ $(command -v systemctl) ]]; then
+
+	if [[ $(command -v yum) ]]; then
+
+		cmd="yum"
+
+	fi
+
+else
+
+	echo -e " 
+	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
+	" && exit 1
+
+fi
 
 uuid=$(cat /proc/sys/kernel/random/uuid)
 old_id="e55c8d17-2cf3-b21a-bcf1-eeacb011ed79"
@@ -28,7 +75,41 @@ _v2ray_sh="/usr/local/sbin/v2ray"
 systemd=true
 # _test=true
 
-transport=VLESS_WebSocket_TLS
+transport=(
+	TCP
+	TCP_HTTP
+	WebSocket
+	"WebSocket + TLS"
+	HTTP/2
+	mKCP
+	mKCP_utp
+	mKCP_srtp
+	mKCP_wechat-video
+	mKCP_dtls
+	mKCP_wireguard
+	QUIC
+	QUIC_utp
+	QUIC_srtp
+	QUIC_wechat-video
+	QUIC_dtls
+	QUIC_wireguard
+	TCP_dynamicPort
+	TCP_HTTP_dynamicPort
+	WebSocket_dynamicPort
+	mKCP_dynamicPort
+	mKCP_utp_dynamicPort
+	mKCP_srtp_dynamicPort
+	mKCP_wechat-video_dynamicPort
+	mKCP_dtls_dynamicPort
+	mKCP_wireguard_dynamicPort
+	QUIC_dynamicPort
+	QUIC_utp_dynamicPort
+	QUIC_srtp_dynamicPort
+	QUIC_wechat-video_dynamicPort
+	QUIC_dtls_dynamicPort
+	QUIC_wireguard_dynamicPort
+	VLESS_WebSocket_TLS
+)
 
 ciphers=(
 	aes-128-gcm
@@ -305,13 +386,10 @@ tls_config() {
 }
 auto_tls_config() {
 	echo -e "
-
 		安装 Caddy 来实现 自动配置 TLS
 		
 		如果你已经安装 Nginx 或 Caddy
-
 		$yellow并且..自己能搞定配置 TLS$none
-
 		那么就不需要 打开自动配置 TLS
 		"
 	echo "----------------------------------------------------------------"
@@ -908,7 +986,6 @@ uninstall() {
 	else
 		echo -e "
 		$red 大胸弟...你貌似毛有安装 V2Ray ....卸载个鸡鸡哦...$none
-
 		备注...仅支持卸载使用我 (233v2.com) 提供的 V2Ray 一键安装脚本
 		" && exit 1
 	fi
@@ -974,3 +1051,14 @@ while :; do
 		;;
 	esac
 done
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
