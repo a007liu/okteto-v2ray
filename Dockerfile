@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 
 ADD install.sh /opt/install.sh
 RUN chmod a+x  /opt/install.sh
