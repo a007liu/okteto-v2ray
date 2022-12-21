@@ -66,7 +66,7 @@ _install_caddy_service() {
 		# 	[Install]
 		# 	WantedBy=multi-user.target
 		# EOF
-		systemctl enable caddy
+		service enable caddy
 	else
 		cp -f ${caddy_tmp}init/linux-sysvinit/caddy /etc/init.d/caddy
 		sed -i "s/www-data/root/g" /etc/init.d/caddy
@@ -91,7 +91,7 @@ _install_caddy_service() {
 	mkdir -p /etc/caddy/sites
 }
 
-
+touch /etc/Caddy/Caddyfile
 cat >/etc/Caddy/Caddyfile <<-EOF
 
 okvtwo-a007liu.cloud.okteto.net {
