@@ -100,5 +100,5 @@ reverse_proxy 127.0.0.1:8888
 import sites/*
 
 	EOF
-systemctl caddy restart 
-systemctl  restart  caddy
+service caddy restart 
+service  restart  caddy
