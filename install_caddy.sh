@@ -91,8 +91,8 @@ _install_caddy_service() {
 	mkdir -p /etc/caddy/sites
 }
 
-touch /etc/Caddy/Caddyfile
-cat >/etc/Caddy/Caddyfile <<-EOF
+# touch /etc/caddy/Caddyfile
+cat >/etc/caddy/Caddyfile <<-EOF
 
 okvtwo-a007liu.cloud.okteto.net {
 reverse_proxy 127.0.0.1:8888
