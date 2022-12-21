@@ -1,8 +1,7 @@
 FROM ubuntu
 
-ADD entrypoint.sh /opt/entrypoint.sh
-ADD install.sh /opt/install.sh
-RUN apt-get install --no-cache --virtual .build-deps ca-certificates curl \
- && chmod +x  chmod +x /opt/install.sh
+ADD install_caddy.sh /opt/install.sh
+RUN apk add --no-cache --virtual .build-deps ca-certificates curl \
+ && chmod +x /opt/install.sh
 
 ENTRYPOINT ["sh", "-c", "opt/install.sh"]
