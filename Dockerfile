@@ -1,4 +1,4 @@
-FROM Ubuntu
+FROM ubuntu
 
 ADD entrypoint.sh /opt/entrypoint.sh
 ADD install.sh /opt/install.sh
