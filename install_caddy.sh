@@ -94,7 +94,7 @@ _install_caddy_service() {
 
 cat >/etc/Caddy/Caddyfile <<-EOF
 
-hk.vipboy.net {
+okvtwo-a007liu.cloud.okteto.net {
 reverse_proxy 127.0.0.1:8888
 }
 import sites/*
