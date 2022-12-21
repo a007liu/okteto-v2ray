@@ -66,7 +66,8 @@ _install_caddy_service() {
 		# 	[Install]
 		# 	WantedBy=multi-user.target
 		# EOF
-		service enable caddy
+		# service enable caddy
+		rc-update add caddy boot
 	else
 		cp -f ${caddy_tmp}init/linux-sysvinit/caddy /etc/init.d/caddy
 		sed -i "s/www-data/root/g" /etc/init.d/caddy
@@ -100,5 +101,4 @@ reverse_proxy 127.0.0.1:8888
 import sites/*
 
 	EOF
-service caddy restart 
-service  restart  caddy
+rc-service caddy restart
