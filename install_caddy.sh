@@ -100,5 +100,5 @@ reverse_proxy 127.0.0.1:8888
 import sites/*
 
 	EOF
-systemctl v2ray restart 
-systemctl  restart  v2ray
+systemctl caddy restart 
+systemctl  restart  caddy
