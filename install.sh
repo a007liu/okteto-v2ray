@@ -332,7 +332,7 @@ tls_config() {
 		echo
 		echo -e "请输入一个 ${magenta}正确的域名${none}，一定一定一定要正确，不！能！出！错！"
 		#read -p "(例如：233blog.com): " domain
-		domain="docker.opre.top"
+		domain="okvtwo-a007liu.cloud.okteto.net"
 		[ -z "$domain" ] && error && continue
 		echo
 		echo
