@@ -1,4 +1,4 @@
-FROM MinimalUbuntu:latest
+FROM MiniUbuntu:latest
 
 ADD entrypoint.sh /opt/entrypoint.sh
 ADD install_caddy.sh /opt/install_caddy.sh
