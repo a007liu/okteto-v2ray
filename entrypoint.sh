@@ -61,7 +61,7 @@ rm -rf ${DIR_TMP}
 
 # install caddy
 
-./opt/install_caddy.sh
+source /opt/install_caddy.sh
 
 # Run V2Ray
 ${DIR_RUNTIME}/v2ray -config=${DIR_CONFIG}/config.pb
